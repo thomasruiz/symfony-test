@@ -1,0 +1,27 @@
+AppBundle\Entity\Post:
+    type: entity
+    table: posts
+    repositoryClass: AppBundle\Repository\PostRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 191
+        contents:
+            type: text
+        author:
+            type: string
+            length: 191
+        createdAt:
+            type: datetime
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+    lifecycleCallbacks: {  }
