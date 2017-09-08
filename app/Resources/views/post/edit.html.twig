@@ -13,6 +13,9 @@
             <a href="{{ path('post_index') }}">Back to the list</a>
         </li>
         <li>
+            <a href="{{ path('post_show', { 'id': post.id }) }}">See the post</a>
+        </li>
+        <li>
             {{ form_start(delete_form) }}
                 <input type="submit" value="Delete">
             {{ form_end(delete_form) }}

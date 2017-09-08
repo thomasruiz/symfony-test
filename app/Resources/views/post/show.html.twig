@@ -1,43 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Post</h1>
+    <a href="{{ path('post_index') }}">◂ Back to the list</a>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ post.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ post.title }}</td>
-            </tr>
-            <tr>
-                <th>Contents</th>
-                <td>{{ post.contents }}</td>
-            </tr>
-            <tr>
-                <th>Author</th>
-                <td>{{ post.author }}</td>
-            </tr>
-            <tr>
-                <th>Createdat</th>
-                <td>{% if post.createdAt %}{{ post.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updatedat</th>
-                <td>{% if post.updatedAt %}{{ post.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+    <h1>
+        {{ post.title }}
+        <a class="short" href="{{ path('post_edit', { 'id': post.id }) }}">edit</a>
+    </h1>
+    <p class="short">Written by {{ post.author }}, on the {{ post.createdAt|date('d M Y \\a\\t H:i:s') }}</p>
+
+    <article>
+        {{ post.contents|nl2br }}
+    </article>
 
     <ul>
         <li>
-            <a href="{{ path('post_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('post_edit', { 'id': post.id }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

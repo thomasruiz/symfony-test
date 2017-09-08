@@ -5,6 +5,73 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="{{ asset('normalize.css') }}">
+
+        <style type="text/css">
+            body {
+                padding: 10px;
+                width: 780px;
+                font: 11pt "Helvetica", sans-serif;
+            }
+
+            hr {
+                outline: none;
+                border: none;
+                border-top: 1px solid grey;
+                width: 60%;
+            }
+
+            [type="text"], [type="select"], textarea {
+                margin-left: 10px;
+                margin-bottom: 10px;
+                padding: 5px;
+            }
+
+            label {
+                display: inline-block;
+                padding-top: 5px;
+                vertical-align: top;
+            }
+
+            li {
+                margin-bottom: 5px;
+            }
+
+            .registration div {
+                display: inline;
+            }
+
+            .registration input[type=submit] {
+                padding: 5px;
+                margin-left: 5px;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            .short {
+                font-size: .7em;
+                font-weight: normal;
+            }
+
+            a {
+                text-decoration: none;
+            }
+
+            a, a:visited, a:focus {
+                color: #006bcc;
+            }
+
+            a:hover {
+                color: #064cb4;
+            }
+
+            a:active {
+                color: #001c61;
+            }
+        </style>
     </head>
     <body>
         {% block body %}{% endblock %}

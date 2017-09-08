@@ -3,9 +3,9 @@
 {% block body %}
     <h1>Simple website</h1>
 
-    <hr>
+    <hr align="left">
 
-    <section>
+    <section class="registration">
         <h2>Register for newsletter</h2>
 
         {{ form_start(form) }}
@@ -14,22 +14,19 @@
         {{ form_end(form) }}
     </section>
 
-    <hr>
+    <hr align="left">
 
     {% for post in posts %}
         <article>
-            <h3><a href="{{ path('post_show', { 'id': post.id }) }}">{{ post.title }}</a></h3>
+            <h3>
+                <a href="{{ path('post_show', { 'id': post.id }) }}">{{ post.title }}</a>
+                <a class="short" href="{{ path('post_edit', { 'id': post.id }) }}">edit</a>
+            </h3>
             <p>Written by {{ post.author }}, on the {{ post.createdAt|date('d M Y \\a\\t H:i:s') }}</p>
-            <div>
-                <ul>
-                    <li>
-                        <a href="{{ path('post_edit', { 'id': post.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </div>
+
         </article>
 
-        <hr>
+        <hr align="left">
     {% endfor %}
 
     <ul>
