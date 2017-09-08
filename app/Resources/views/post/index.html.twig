@@ -1,43 +1,36 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Posts list</h1>
+    <h1>Simple website</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Contents</th>
-                <th>Author</th>
-                <th>Createdat</th>
-                <th>Updatedat</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for post in posts %}
-            <tr>
-                <td><a href="{{ path('post_show', { 'id': post.id }) }}">{{ post.id }}</a></td>
-                <td>{{ post.title }}</td>
-                <td>{{ post.contents }}</td>
-                <td>{{ post.author }}</td>
-                <td>{% if post.createdAt %}{{ post.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if post.updatedAt %}{{ post.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('post_show', { 'id': post.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('post_edit', { 'id': post.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <hr>
+
+    <section>
+        <h2>Register for newsletter</h2>
+
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <input type="submit" value="Register" />
+        {{ form_end(form) }}
+    </section>
+
+    <hr>
+
+    {% for post in posts %}
+        <article>
+            <h3><a href="{{ path('post_show', { 'id': post.id }) }}">{{ post.title }}</a></h3>
+            <p>Written by {{ post.author }}, on the {{ post.createdAt|date('d M Y \\a\\t H:i:s') }}</p>
+            <div>
+                <ul>
+                    <li>
+                        <a href="{{ path('post_edit', { 'id': post.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </div>
+        </article>
+
+        <hr>
+    {% endfor %}
 
     <ul>
         <li>

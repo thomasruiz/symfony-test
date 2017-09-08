@@ -1,0 +1,4 @@
+subscriber_register:
+    path:     /register
+    defaults: { _controller: "AppBundle:Subscriber:register" }
+    methods:  [POST]

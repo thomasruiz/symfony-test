@@ -1,0 +1,28 @@
+AppBundle\Entity\Subscriber:
+    type: entity
+    table: subscribers
+    repositoryClass: AppBundle\Repository\SubscriberRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        email:
+            type: string
+            length: '191'
+            unique: true
+        unregisterToken:
+            type: string
+            length: '191'
+            nullable: true
+            column: unregister_token
+        createdAt:
+            type: datetime
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+    lifecycleCallbacks: {  }

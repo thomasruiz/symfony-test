@@ -1,4 +1,11 @@
+index:
+    path:     /
+    defaults: { _controller: "AppBundle:Default:index" }
+
 app_post:
     resource: "@AppBundle/Resources/config/routing/post.yml"
     prefix:   /post
 
+app_subscriber_register:
+    resource: "@AppBundle/Resources/config/routing/subscriber.yml"
+    prefix:   /subscriber

@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Post;
+use AppBundle\Entity\Subscriber;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,9 +24,13 @@ class PostController extends Controller
     public function indexAction(EntityManagerInterface $em)
     {
         $posts = $em->getRepository('AppBundle:Post')->findAll();
+        $form = $this->createForm('AppBundle\Form\SubscriberType', null, [
+            'action' => $this->generateUrl('subscriber_register')
+        ]);
 
         return $this->render('post/index.html.twig', array(
             'posts' => $posts,
+            'form' => $form->createView(),
         ));
     }
 
@@ -40,8 +46,11 @@ class PostController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $post->setCreatedAt(new DateTime());
             $em->persist($post);
             $em->flush();
+
+            $this->notifySubscribers($post);
 
             return $this->redirectToRoute('post_show', array('id' => $post->getId()));
         }
@@ -77,6 +86,7 @@ class PostController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $post->setUpdatedAt(new DateTime());
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('post_edit', array('id' => $post->getId()));
@@ -121,5 +131,23 @@ class PostController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    private function notifySubscribers(Post $post)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $subscribers = $em->getRepository('AppBundle:Subscriber')->findRegistered();
+
+        if (count($subscribers)) {
+            $mailer = $this->get('mailer');
+            foreach ($subscribers as $subscriber) {
+                $message = new \Swift_Message('A new post has arrived!');
+                $message->setFrom('noreply@neoxia.com');
+                $message->setTo($subscriber->getEmail());
+                $message->setBody($this->renderView('emails/new_post.html.twig', ['post' => $post]));
+
+                $mailer->send($message);
+            }
+        }
     }
 }

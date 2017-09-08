@@ -6,14 +6,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PostType extends AbstractType
+class SubscriberType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('contents')->add('author');
+        $builder->add('email');
     }
     
     /**
@@ -22,7 +22,7 @@ class PostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Post'
+            'data_class' => 'AppBundle\Entity\Subscriber'
         ));
     }
 
@@ -31,7 +31,7 @@ class PostType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_post';
+        return 'appbundle_subscriber';
     }
 
 
